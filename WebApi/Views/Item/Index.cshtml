@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApi.Models.ItemModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>Registros:</h2>
+    @*<input type="button" value="Listar" onclick="Listar();" />*@
+    <ul id="registros">
+        @{
+            if (Model == null)
+            {
+                <li>Nenhum registro encontrado...</li>
+            }
+            else
+            {
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <td>Moeda</td>
+                            <td>Data Início</td>
+                            <td>Data Fim</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr><td>@item.moeda </td><td>@item.data_inicio.ToString("dd/MM/yyyy") </td><td>@item.data_fim.ToString("dd/MM/yyyy")</td></tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+    </ul>
+</div>
+<div>
+    <h2>Incluir registro</h2>
+    @using (Html.BeginForm("AddItemFila", "Item", FormMethod.Post))
+    {
+        <textarea id="jsonEntrada" name="jsonEntrada" rows="10" cols="50"></textarea> <br />
+        if (!string.IsNullOrEmpty(ViewBag.msg))
+        {
+            <p>@ViewBag.msg</p>
+        }
+        <input type="submit" value="Incluir" />
+    }
+</div>
+<div>
+    <h2>Buscar Último Registro</h2>
+    @using (Html.BeginForm("GetItemFila", "Item"))
+    {
+        <input type="submit" value="Buscar" />
+        if (ViewBag.UltimoItem != null)
+        {
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>Moeda</td>
+                        <td>Data Início</td>
+                        <td>Data Fim</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>@ViewBag.UltimoItem.moeda </td><td>@ViewBag.UltimoItem.data_inicio.ToString("dd/MM/yyyy") </td><td>@ViewBag.UltimoItem.data_fim.ToString("dd/MM/yyyy")</td></tr>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>@ViewBag.msgBusca</p>
+        }
+        <p id="ultimoIncluido" />
+    }
+
+</div>

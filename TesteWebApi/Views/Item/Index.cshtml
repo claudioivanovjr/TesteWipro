@@ -1,0 +1,21 @@
+﻿
+
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h2>Registros:</h2>
+    <input type="button" value="Listar" onclick="Listar();" />
+    <ul id="registros" />
+</div>
+<div>
+    <h2>Incluir registro</h2>
+    <textarea id="jsonEntrada" size="5"></textarea>
+    <input type="button" value="Incluir" onclick="@Html.Action("NovaFila", "AddItemFila")" />
+    <p id="resultado" />
+</div>
+<div>
+    <h2>Buscar Último Registro</h2>
+    <input type="button" value="Buscar" onclick="Buscar();" />
+    <p id="ultimoIncluido" />
+</div>
