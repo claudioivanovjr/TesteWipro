@@ -1,0 +1,24 @@
+--1. 
+select s.dsStatus, count(nroProceso) 'Qtde'
+from tb_processo p with(nolock)
+left join tb_status s with(nolock)
+group by s.dsStatus
+order by s.dsStatus
+
+--2.
+select nroProceso, max(dtAndamento) 'UltimaDataAndamento'
+from tb_processo p with(nolock)
+inner join tb_andamento a with(nolock)
+where datepart(year, p.dtEncerramento) = 2013
+group by nroProceso
+order by nroProceso
+
+--3.
+select dtEncerramento, count(dtEncerramento) 'Qtde'
+from tb_processo with(nolock)
+group by dtEncerramento
+having count(dtEncerramento) > 5
+order by dtEncerramento
+
+--4.
+--Devemos converter o valor para varchar e usar o lpad para adicionar os zeros necessários a esquerda.
